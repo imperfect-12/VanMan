@@ -20,4 +20,4 @@ app.use("/api/quotes", quoteRoute);
 app.use("/api/bookings", bookingRoute);
 
 const PORT = process.env.PORT || 3000;
-app.listen(process.env.PORT);
+app.listen(PORT, () => [console.log(`server running on port${PORT}`)]);

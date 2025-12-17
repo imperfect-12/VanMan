@@ -10,4 +10,4 @@ const router = express.Router();
 router.post("/", auth, createBooking);
 router.post("/my", auth, getBookings);
 
-module.exports = router;
+export default router;

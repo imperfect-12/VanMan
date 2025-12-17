@@ -6,4 +6,4 @@ const router = express.Router();
 router.post("/", createQuote);
 router.get("/my", getQuotes);
 
-module.exports = router;
+export default router;

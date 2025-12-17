@@ -3,7 +3,7 @@ import Booking from "../models/booking.js";
 export const createBooking = async (req, res) => {
   try {
     const { serviceType, loadType, pickupLocation, dropLocation } = req.body;
-    const booking = await Booking.Create({
+    const booking = await Booking.create({
       user: req.user.id,
       serviceType,
       loadType,
