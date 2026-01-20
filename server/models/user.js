@@ -13,16 +13,28 @@ const userSchema = new mongoose.Schema({
   phone: {
     type: String,
     unique: true,
+    sparse: true,
   },
   password: {
     type: String,
-    required: true,
+    required: function () {
+      return this.role === "customer";
+    },
   },
   role: {
     type: String,
+    enum: ["customer", "admin", "member"],
+    default: "customer",
     required: true,
   },
-  is,
+  memberStatus: {
+    type: String,
+    enum: ["available", "assigned", "inactive"],
+    default: undefined,
+    required: function () {
+      return this.role === "member";
+    },
+  },
 });
 
 const User = mongoose.model("User", userSchema);

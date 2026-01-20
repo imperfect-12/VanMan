@@ -4,10 +4,12 @@ const quoteSchema = new mongoose.Schema({
   serviceType: {
     type: String,
     required: true,
+    enum: ["small-parcel", "furniture", "house-move", "helper-only"],
   },
   loadSize: {
     type: String,
     required: true,
+    emum: ["small", "medium", "large"],
   },
   pickupLocation: {
     type: Object,

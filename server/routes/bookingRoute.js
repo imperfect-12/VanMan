@@ -8,6 +8,6 @@ import auth from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.post("/", auth, createBooking);
-router.post("/my", auth, getBookings);
+router.get("/my", auth, getBookings);
 
 export default router;

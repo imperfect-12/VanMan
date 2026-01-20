@@ -19,7 +19,9 @@ export const registerUser = async (req, res) => {
     });
 
     res.status(201).json({ message: "User registered successfully" });
-  } catch {
+    console.log("registered");
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "server error" });
   }
 };
@@ -31,7 +33,7 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "invalid credentials" });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = bcrypt.compare(password, user.password);
     if (!isMatch)
       return res.status(400).json({ message: "invalid credentials" });
 
@@ -43,7 +45,7 @@ export const loginUser = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, //this will be changed later to true
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -56,7 +58,9 @@ export const loginUser = async (req, res) => {
         role: user.role,
       },
     });
-  } catch {
+    console.log("logged in");
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "server error" });
   }
 };
@@ -64,4 +68,16 @@ export const loginUser = async (req, res) => {
 export const getMe = async (req, res) => {
   const user = await User.findById(req.user.id).select("-password");
   res.json(user);
+  console.log("get user executed");
+};
+
+export const logout = async (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+  console.log("logged out");
+
+  res.status(200).json({ message: "Logged out" });
 };

@@ -1,9 +1,9 @@
 import express from "express";
-import { createQuote, getQuotes } from "../controllers/quoteController.js";
+import auth from "../middleware/authMiddleware.js";
+import { createQuote } from "../controllers/quoteController.js";
 
 const router = express.Router();
 
-router.post("/", createQuote);
-router.get("/my", getQuotes);
+router.post("/", auth, createQuote);
 
 export default router;

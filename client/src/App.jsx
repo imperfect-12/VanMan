@@ -5,10 +5,10 @@ import Login from "./pages/Login.jsx";
 import { useAuthContext } from "./contexts/AuthContext.jsx";
 
 function App() {
-  const { logged } = useAuthContext();
+  const { isAuthenticated } = useAuthContext();
   return (
     <div>
-      {logged ? (
+      {isAuthenticated ? (
         <>
           <TopNav />
           <AppRoutes />
