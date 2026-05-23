@@ -19,7 +19,7 @@ const bookingSchema = new mongoose.Schema(
     loadSize: {
       type: String,
       required: true,
-      emum: ["small", "medium", "large"],
+      enum: ["small", "medium", "large"],
     },
     pickupLocation: {
       type: Object,
@@ -55,7 +55,7 @@ const bookingSchema = new mongoose.Schema(
       default: null,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Booking = mongoose.model("Booking", bookingSchema);

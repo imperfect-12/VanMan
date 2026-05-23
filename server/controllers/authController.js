@@ -33,14 +33,14 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "invalid credentials" });
 
-    const isMatch = bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
       return res.status(400).json({ message: "invalid credentials" });
 
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     res.cookie("token", token, {
@@ -66,9 +66,14 @@ export const loginUser = async (req, res) => {
 };
 
 export const getMe = async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.json(user);
-  console.log("get user executed");
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+    console.log("get user executed");
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "No user found" });
+  }
 };
 
 export const logout = async (req, res) => {

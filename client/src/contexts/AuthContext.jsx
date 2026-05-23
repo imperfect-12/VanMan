@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       await authService.login(email, password);
-      const userData = authService.getMe();
+      const userData = await authService.getMe();
       setUser(userData);
     } catch (err) {
       console.log(err.response?.data?.message);
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await authService.signup(name, email, password);
       await authService.login(email, password);
-      const userData = authService.getMe();
+      const userData = await authService.getMe();
       setUser(userData);
     } catch (err) {
       console.log(err.response?.data?.message);

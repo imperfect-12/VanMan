@@ -9,7 +9,7 @@ const quoteSchema = new mongoose.Schema({
   loadSize: {
     type: String,
     required: true,
-    emum: ["small", "medium", "large"],
+    enum: ["small", "medium", "large"],
   },
   pickupLocation: {
     type: Object,

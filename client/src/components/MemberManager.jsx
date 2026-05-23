@@ -7,7 +7,7 @@ import {
 
 const MemberManager = () => {
   const [members, setMembers] = useState([]);
-  const [loading, setLoading] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [errMessage, setErrMessage] = useState(null);
 
   const fetchMembers = async () => {
@@ -23,7 +23,7 @@ const MemberManager = () => {
   };
   useEffect(() => {
     fetchMembers();
-  }, [members]);
+  }, []);
 
   return (
     <div>
