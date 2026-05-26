@@ -10,7 +10,7 @@ A full-stack moving service marketplace where customers can get instant quotes a
 
 ## Screenshots
 
-> *(Add screenshots here once CSS is complete)*
+> *(Will be adding soon)*
 
 ---
 
@@ -26,10 +26,6 @@ A full-stack moving service marketplace where customers can get instant quotes a
 - View and manage all bookings across the platform
 - Add, remove, and update the status of team members
 - Assign available members to pending bookings
-
-**Members**
-- Tracked with availability status — available, assigned, or inactive
-- Automatically marked as assigned when attached to a booking
 
 ---
 
@@ -112,12 +108,6 @@ cd client
 npm install
 ```
 
-Create a `.env` file in the `client/` directory:
-
-```bash
-VITE_API_URL=http://localhost:3000/api
-```
-
 Start the client:
 
 ```bash
@@ -125,12 +115,6 @@ npm run dev
 ```
 
 The app will be running at `http://localhost:5173`.
-
----
-
-## Environment Variables
-
-See `server/.env.example` and `client/.env.example` for the full list of required variables.
 
 ---
 
