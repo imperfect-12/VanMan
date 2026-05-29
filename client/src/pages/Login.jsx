@@ -22,147 +22,218 @@ const Login = () => {
   };
 
   return (
-    <main>
-      <h1>{mode === "login" ? "Login" : "Sign up"}</h1>
+    <main className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-2xl p-8">
+        <h1 className="text-3xl font-bold text-slate-900 text-center mb-8">
+          {mode === "login" ? "Login" : "Sign up"}
+        </h1>
 
-      {/* Login Form */}
-      {mode === "login" && (
-        <div>
-          <form>
-            <div>
-              <label>Email</label>
-              <input
-                type="email"
-                placeholder="enter your Email"
-                required
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type={show ? "text" : "password"}
-                placeholder="Enter your Password"
-                required
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
+        {/* Login Form */}
+        {mode === "login" && (
+          <div>
+            <form className="space-y-5">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-slate-700">
+                  Email
+                </label>
+                <input
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg
+                         focus:outline-none focus:ring-2 focus:ring-blue-500
+                         focus:border-blue-500 transition"
+                  type="email"
+                  placeholder="Enter your Email"
+                  required
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="password"
+                  className="text-sm font-medium text-slate-700"
+                >
+                  Password
+                </label>
+
+                <div className="relative">
+                  <input
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg
+                           focus:outline-none focus:ring-2 focus:ring-blue-500
+                           focus:border-blue-500 transition"
+                    id="password"
+                    type={show ? "text" : "password"}
+                    placeholder="Enter your Password"
+                    required
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+
+                  <button
+                    className="absolute right-3 top-1/2 -translate-y-1/2
+                           text-slate-500 hover:text-blue-600 transition"
+                    type="button"
+                    onClick={() => {
+                      setShow(!show);
+                    }}
+                    aria-label={show ? "Hide password" : "Show password"}
+                  >
+                    {show ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="text-right">
+                <button
+                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  type="button"
+                >
+                  Forgot password?
+                </button>
+              </div>
+
               <button
-                type="button"
-                onClick={() => {
-                  setShow(!show);
-                }}
-                aria-label={show ? "Hide password" : "Show password"}
-              >
-                {show ? <IoEyeOffOutline /> : <IoEyeOutline />}
-              </button>
-            </div>
-            <div>
-              <button type="button">forgot password?</button>
-            </div>
-            <button type="submit" onClick={handleLogin}>
-              Login
-            </button>
-            <p>
-              Don't have an account?{" "}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMode("signup");
-                }}
-              >
-                Sign up
-              </button>
-            </p>
-          </form>
-        </div>
-      )}
-      {/* Signup Form */}
-      {mode === "signup" && (
-        <div>
-          <form>
-            <div>
-              <label>Name</label>
-              <input
-                type="text"
-                placeholder="enter your Name"
-                required
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label>Email</label>
-              <input
-                type="email"
-                placeholder="enter your Email"
-                required
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type={show ? "text" : "password"}
-                placeholder="Enter your Password"
-                required
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  setShow(!show);
-                }}
-                aria-label={show ? "Hide password" : "Show password"}
-              >
-                {show ? <IoEyeOffOutline /> : <IoEyeOutline />}
-              </button>
-            </div>
-            {/* <div>
-              <label>Confirem Password</label>
-              <input
-                type="password"
-                placeholder="Re-Enter your Password"
-                required
-              />
-            </div> */}
-            <div>
-              <button type="button">forgot password?</button>
-            </div>
-            <button type="submit" onClick={handleSignup}>
-              Signup
-            </button>
-            <p>
-              Already have an account?{" "}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMode("login");
-                }}
+                className="w-full bg-blue-600 text-white py-3 rounded-lg
+                       font-medium hover:bg-blue-700 transition-colors"
+                type="submit"
+                onClick={handleLogin}
               >
                 Login
               </button>
-            </p>
-          </form>
-        </div>
-      )}
+
+              <p className="text-center text-sm text-slate-600">
+                Don't have an account?{" "}
+                <button
+                  className="text-blue-600 hover:text-blue-700 font-medium"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMode("signup");
+                  }}
+                >
+                  Sign up
+                </button>
+              </p>
+            </form>
+          </div>
+        )}
+
+        {/* Signup Form */}
+        {mode === "signup" && (
+          <div>
+            <form className="space-y-5">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-slate-700">
+                  Name
+                </label>
+                <input
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg
+                         focus:outline-none focus:ring-2 focus:ring-blue-500
+                         focus:border-blue-500 transition"
+                  type="text"
+                  placeholder="Enter your Name"
+                  required
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-slate-700">
+                  Email
+                </label>
+                <input
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg
+                         focus:outline-none focus:ring-2 focus:ring-blue-500
+                         focus:border-blue-500 transition"
+                  type="email"
+                  placeholder="Enter your Email"
+                  required
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="password"
+                  className="text-sm font-medium text-slate-700"
+                >
+                  Password
+                </label>
+
+                <div className="relative">
+                  <input
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg
+                           focus:outline-none focus:ring-2 focus:ring-blue-500
+                           focus:border-blue-500 transition"
+                    id="password"
+                    type={show ? "text" : "password"}
+                    placeholder="Enter your Password"
+                    required
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+
+                  <button
+                    className="absolute right-3 top-1/2 -translate-y-1/2
+                           text-slate-500 hover:text-blue-600 transition"
+                    type="button"
+                    onClick={() => {
+                      setShow(!show);
+                    }}
+                    aria-label={show ? "Hide password" : "Show password"}
+                  >
+                    {show ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="text-right">
+                <button
+                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  type="button"
+                >
+                  Forgot password?
+                </button>
+              </div>
+
+              <button
+                className="w-full bg-blue-600 text-white py-3 rounded-lg
+                       font-medium hover:bg-blue-700 transition-colors"
+                type="submit"
+                onClick={handleSignup}
+              >
+                Signup
+              </button>
+
+              <p className="text-center text-sm text-slate-600">
+                Already have an account?{" "}
+                <button
+                  className="text-blue-600 hover:text-blue-700 font-medium"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMode("login");
+                  }}
+                >
+                  Login
+                </button>
+              </p>
+            </form>
+          </div>
+        )}
+      </div>
     </main>
   );
 };

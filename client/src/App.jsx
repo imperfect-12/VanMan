@@ -1,4 +1,4 @@
-import TopNav from "./components/Topnav";
+import TopNav from "./components/TopNav";
 import AppRoutes from "./routes/AppRoutes";
 import Footer from "./components/Footer";
 import Login from "./pages/Login.jsx";

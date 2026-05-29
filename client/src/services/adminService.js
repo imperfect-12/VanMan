@@ -26,3 +26,8 @@ export const getMembers = async () => {
   const res = await api.get(`/admin/members/`);
   return res.data;
 };
+
+export const addMember = async (memberData) => {
+  const res = await api.post("/admin/members", memberData);
+  return res.data;
+};
