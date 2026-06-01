@@ -26,36 +26,93 @@ const BookingManager = () => {
   }, []);
 
   return (
-    <div>
-      {errMessage && <p>{errMessage}</p>}
+    <div className="bg-white border border-slate-200 rounded-xl p-6">
+      {errMessage && (
+        <p className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {errMessage}
+        </p>
+      )}
+
       {loading ? (
-        <div>Loading...</div>
+        <div className="flex items-center justify-center py-12">
+          <p className="text-slate-500">Loading...</p>
+        </div>
       ) : (
-        <table border="1" cellPadding="8" cellSpacing="0">
-          <thead>
-            <tr>
-              <th scope="col">Customer</th>
-              <th scope="col">Phone</th>
-              <th scope="col">Service Date</th>
-              <th scope="col">Pickup</th>
-              <th scope="col">Drop</th>
-              <th scope="col">Member Assigned</th>
-              <th scope="col">Assigned Member</th>
-              <th scope="col">Assign</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookings.map((booking) => (
-              <BookingRow
-                key={booking._id}
-                booking={booking}
-                members={members}
-                onAssigned={fetchBookings}
-                setErrorMessage={setErrMessage}
-              />
-            ))}
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-slate-200">
+            <thead className="bg-slate-50">
+              <tr>
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Customer
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Phone
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Service Date
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Pickup
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Drop
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Member Assigned
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Assigned Member
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Assign
+                </th>
+              </tr>
+            </thead>
+
+            <tbody className="divide-y divide-slate-200 bg-white">
+              {bookings.map((booking) => (
+                <BookingRow
+                  key={booking._id}
+                  booking={booking}
+                  members={members}
+                  onAssigned={fetchBookings}
+                  setErrorMessage={setErrMessage}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

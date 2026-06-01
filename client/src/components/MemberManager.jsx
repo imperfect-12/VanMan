@@ -65,96 +65,182 @@ const MemberManager = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Add Member</h2>
-      <form
-        onSubmit={handleAddMember}
-        style={{
-          display: "flex",
-          gap: "8px",
-          flexWrap: "wrap",
-          marginBottom: "16px",
-        }}
-      >
-        <input
-          name="name"
-          placeholder="Full name *"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email *"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          name="phone"
-          type="tel"
-          placeholder="Phone (optional)"
-          value={form.phone}
-          onChange={handleChange}
-        />
-        <button type="submit" disabled={submitting}>
-          {submitting ? "Adding…" : "Add Member"}
-        </button>
-      </form>
-      {formError && <p style={{ color: "red" }}>{formError}</p>}
+    <div className="space-y-8">
+      {/* Add Member Section */}
+      <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <h2 className="text-xl font-semibold text-slate-900 mb-6">
+          Add Member
+        </h2>
 
-      <h2>Members List</h2>
-      {errMessage && <p>{errMessage}</p>}
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <table border="1" cellPadding="8" cellSpacing="0">
-          <thead>
-            <tr>
-              <th scope="col">Member Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone No.</th>
-              <th scope="col">Member Status</th>
-              <th scope="col">Change Status</th>
-              <th scope="col">Delete Member</th>
-            </tr>
-          </thead>
-          <tbody>
-            {members.map((member) => (
-              <tr key={member._id}>
-                <td>{member?.name || "—"}</td>
-                <td>{member?.email || "—"}</td>
-                <td>{member?.phone || "—"}</td>
-                <td>{member?.memberStatus || "—"}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      changeMemberStatus(member._id, "available");
-                      fetchMembers();
-                    }}
-                  >
-                    {member.memberStatus === "available"
-                      ? "Assign"
-                      : "Unassign"}
-                  </button>
-                </td>
-                <td>
-                  <button
-                    onClick={() => {
-                      deleteMember(member._id);
-                      fetchMembers();
-                    }}
-                    style={{ marginLeft: "8px", color: "red" }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+        <form
+          onSubmit={handleAddMember}
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        >
+          <input
+            className="px-4 py-3 border border-slate-300 rounded-lg
+                   focus:outline-none focus:ring-2
+                   focus:ring-blue-500 focus:border-blue-500"
+            name="name"
+            placeholder="Full name *"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            className="px-4 py-3 border border-slate-300 rounded-lg
+                   focus:outline-none focus:ring-2
+                   focus:ring-blue-500 focus:border-blue-500"
+            name="email"
+            type="email"
+            placeholder="Email *"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            className="px-4 py-3 border border-slate-300 rounded-lg
+                   focus:outline-none focus:ring-2
+                   focus:ring-blue-500 focus:border-blue-500"
+            name="phone"
+            type="tel"
+            placeholder="Phone (optional)"
+            value={form.phone}
+            onChange={handleChange}
+          />
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="px-4 py-3 bg-blue-600 text-white rounded-lg
+                   font-medium hover:bg-blue-700
+                   disabled:bg-slate-300 disabled:cursor-not-allowed
+                   transition-colors"
+          >
+            {submitting ? "Adding..." : "Add Member"}
+          </button>
+        </form>
+
+        {formError && <p className="mt-4 text-sm text-red-600">{formError}</p>}
+      </div>
+
+      {/* Members List */}
+      <div className="bg-white border border-slate-200 rounded-xl p-6">
+        <h2 className="text-xl font-semibold text-slate-900 mb-6">
+          Members List
+        </h2>
+
+        {errMessage && (
+          <p className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {errMessage}
+          </p>
+        )}
+
+        {loading ? (
+          <div className="flex justify-center py-10">
+            <p className="text-slate-500">Loading...</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-slate-200">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-600">
+                    Member Name
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-600">
+                    Email
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-600">
+                    Phone No.
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-600">
+                    Member Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-600">
+                    Change Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-slate-600">
+                    Delete Member
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody className="divide-y divide-slate-200">
+                {members.map((member) => {
+                  const newStatus =
+                    member.memberStatus === "available"
+                      ? "inactive"
+                      : "available";
+                  const label =
+                    member.memberStatus === "available"
+                      ? "Deactivate"
+                      : "Activate";
+                  return (
+                    <tr
+                      key={member._id}
+                      className="hover:bg-slate-50 transition-colors"
+                    >
+                      <td className="px-4 py-3 text-sm text-slate-700">
+                        {member?.name || "—"}
+                      </td>
+
+                      <td className="px-4 py-3 text-sm text-slate-700">
+                        {member?.email || "—"}
+                      </td>
+
+                      <td className="px-4 py-3 text-sm text-slate-700">
+                        {member?.phone || "—"}
+                      </td>
+
+                      <td className="px-4 py-3">
+                        <span
+                          className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${
+                            member?.memberStatus === "available"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-amber-100 text-amber-700"
+                          }`}
+                        >
+                          {member?.memberStatus || "—"}
+                        </span>
+                      </td>
+
+                      <td className="px-4 py-3">
+                        <button
+                          className="px-3 py-2 bg-blue-600 text-white rounded-lg
+                               text-sm font-medium hover:bg-blue-700
+                               transition-colors"
+                          onClick={() => {
+                            changeMemberStatus(member._id, newStatus);
+                            fetchMembers();
+                          }}
+                        >
+                          {label}
+                        </button>
+                      </td>
+
+                      <td className="px-4 py-3">
+                        <button
+                          className="px-3 py-2 bg-red-600 text-white rounded-lg
+                               text-sm font-medium hover:bg-red-700
+                               transition-colors"
+                          onClick={() => {
+                            deleteMember(member._id);
+                            fetchMembers();
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

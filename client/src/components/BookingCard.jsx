@@ -16,63 +16,85 @@ const BookingCard = ({ booking }) => {
   } = booking;
 
   return (
-    <div>
-      <p>
-        <strong>Customer Name:</strong> {contactDetails.name}
-      </p>
+    <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-3 hover:shadow-sm transition-shadow">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-slate-900">
+          {contactDetails.name}
+        </h3>
 
-      <p>
-        <strong>Phone:</strong> {contactDetails.phone}
-      </p>
+        <span
+          className={`px-3 py-1 text-xs font-medium rounded-full
+      ${
+        status === "Completed"
+          ? "bg-green-100 text-green-700"
+          : status === "Pending"
+            ? "bg-yellow-100 text-yellow-700"
+            : "bg-blue-100 text-blue-700"
+      }`}
+        >
+          {status}
+        </span>
+      </div>
 
-      <p>
-        <strong>Email:</strong> {contactDetails.email}
-      </p>
-
-      <p>
-        <strong>Service Type:</strong> {serviceType}
-      </p>
-
-      <p>
-        <strong>Service Date:</strong>{" "}
-        {new Date(serviceDate).toLocaleDateString()}
-      </p>
-
-      <p>
-        <strong>Status:</strong> {status}
-      </p>
-
-      <p>
-        <strong>Load Size:</strong> {loadSize}
-      </p>
-
-      <p>
-        <strong>Pickup:</strong> {pickupLocation.city}, {pickupLocation.area}
-      </p>
-
-      <p>
-        <strong>Drop:</strong> {dropLocation.city}, {dropLocation.area}
-      </p>
-
-      {description && (
+      <div className="grid gap-2 text-sm text-slate-600">
         <p>
-          <strong>Description:</strong> {description}
+          <span className="font-medium text-slate-800">Phone:</span>{" "}
+          {contactDetails.phone}
         </p>
-      )}
 
-      <p>
-        <strong>Assigned Member:</strong>{" "}
-        {memberAssigned ? assignedMember?.name || "Assigned" : "Not assigned"}
-      </p>
+        <p>
+          <span className="font-medium text-slate-800">Email:</span>{" "}
+          {contactDetails.email}
+        </p>
 
-      <p>
-        <strong>Booking Price:</strong> ₹{bookingPrice}
-      </p>
+        <p>
+          <span className="font-medium text-slate-800">Service:</span>{" "}
+          {serviceType}
+        </p>
 
-      <p>
-        <strong>Created At:</strong> {new Date(createdAt).toLocaleString()}
-      </p>
-      <hr />
+        <p>
+          <span className="font-medium text-slate-800">Date:</span>{" "}
+          {new Date(serviceDate).toLocaleDateString()}
+        </p>
+
+        <p>
+          <span className="font-medium text-slate-800">Load Size:</span>{" "}
+          {loadSize}
+        </p>
+
+        <p>
+          <span className="font-medium text-slate-800">Pickup:</span>{" "}
+          {pickupLocation.city}, {pickupLocation.area}
+        </p>
+
+        <p>
+          <span className="font-medium text-slate-800">Drop:</span>{" "}
+          {dropLocation.city}, {dropLocation.area}
+        </p>
+
+        {description && (
+          <p>
+            <span className="font-medium text-slate-800">Description:</span>{" "}
+            {description}
+          </p>
+        )}
+
+        <p>
+          <span className="font-medium text-slate-800">Assigned Member:</span>{" "}
+          {memberAssigned ? assignedMember?.name || "Assigned" : "Not assigned"}
+        </p>
+
+        <p>
+          <span className="font-medium text-slate-800">Booking Price:</span>{" "}
+          <span className="text-blue-600 font-semibold">₹{bookingPrice}</span>
+        </p>
+      </div>
+
+      <div className="pt-3 border-t border-slate-200">
+        <p className="text-xs text-slate-500">
+          Created {new Date(createdAt).toLocaleString()}
+        </p>
+      </div>
     </div>
   );
 };

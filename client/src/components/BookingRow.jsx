@@ -23,33 +23,59 @@ const BookingRow = ({ booking, members, onAssigned, setErrMessage }) => {
   };
 
   const assignedMemberObj = members.find(
-    (m) => m._id === booking.assignedMember
+    (m) => m._id === booking.assignedMember,
   );
 
   return (
-    <tr>
-      <td>{booking.contactDetails?.name || "—"}</td>
+    <tr className="hover:bg-slate-50 transition-colors">
+      <td className="px-4 py-3 text-sm text-slate-700">
+        {booking.contactDetails?.name || "—"}
+      </td>
 
-      <td>{booking.contactDetails?.phone || "—"}</td>
+      <td className="px-4 py-3 text-sm text-slate-700">
+        {booking.contactDetails?.phone || "—"}
+      </td>
 
-      <td>{formatDate(booking.serviceDate)}</td>
+      <td className="px-4 py-3 text-sm text-slate-700">
+        {formatDate(booking.serviceDate)}
+      </td>
 
-      <td>{formatLocation(booking.pickupLocation)}</td>
+      <td className="px-4 py-3 text-sm text-slate-700">
+        {formatLocation(booking.pickupLocation)}
+      </td>
 
-      <td>{formatLocation(booking.dropLocation)}</td>
+      <td className="px-4 py-3 text-sm text-slate-700">
+        {formatLocation(booking.dropLocation)}
+      </td>
 
-      <td>{booking.memberAssigned ? "Yes" : "No"}</td>
+      <td className="px-4 py-3">
+        <span
+          className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${
+            booking.memberAssigned
+              ? "bg-green-100 text-green-700"
+              : "bg-amber-100 text-amber-700"
+          }`}
+        >
+          {booking.memberAssigned ? "Yes" : "No"}
+        </span>
+      </td>
 
-      <td>{assignedMemberObj?.name || "—"}</td>
+      <td className="px-4 py-3 text-sm text-slate-700">
+        {assignedMemberObj?.name || "—"}
+      </td>
 
-      <td>
-        {!booking.memberAssigned && (
-          <>
+      <td className="px-4 py-3">
+        {!booking.memberAssigned ? (
+          <div className="flex items-center gap-2">
             <select
+              className="rounded-lg border border-slate-300 px-3 py-2 text-sm
+                     focus:outline-none focus:ring-2 focus:ring-blue-500
+                     focus:border-blue-500"
               value={selectedMember}
               onChange={(e) => setSelectedMember(e.target.value)}
             >
               <option value="">Select member</option>
+
               {members
                 .filter((m) => m.memberStatus === "available")
                 .map((m) => (
@@ -59,12 +85,19 @@ const BookingRow = ({ booking, members, onAssigned, setErrMessage }) => {
                 ))}
             </select>
 
-            <button onClick={handleSave} disabled={loading}>
+            <button
+              className="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm
+                     font-medium hover:bg-blue-700 disabled:bg-slate-300
+                     disabled:cursor-not-allowed transition-colors"
+              onClick={handleSave}
+              disabled={loading}
+            >
               {loading ? "Saving..." : "Save"}
             </button>
-          </>
+          </div>
+        ) : (
+          <span className="text-sm font-medium text-green-600">Assigned</span>
         )}
-        {booking.memberAssigned && "assigned"}
       </td>
     </tr>
   );
