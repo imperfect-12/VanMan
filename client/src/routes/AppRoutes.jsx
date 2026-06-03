@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import CustomerDashboard from "../pages/CustomerDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
 import BookingPage from "../pages/BookingPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
   return (
@@ -11,10 +12,38 @@ const AppRoutes = () => {
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route path={"/home"} element={<Home />} />
-        <Route path="/quote" element={<QuoteForm />} />
-        <Route path="/dashboard" element={<CustomerDashboard />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/bookingpage" element={<BookingPage />} />
+        <Route
+          path="/quote"
+          element={
+            <ProtectedRoute>
+              <QuoteForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <CustomerDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/bookingpage"
+          element={
+            <ProtectedRoute allowedRoles={["customer"]}>
+              <BookingPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );

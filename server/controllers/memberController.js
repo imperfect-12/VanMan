@@ -4,6 +4,11 @@ import Booking from "../models/booking.js";
 const addMember = async (req, res) => {
   try {
     const { name, phone, email } = req.body;
+    if (!name || !phone || !email) {
+      return res
+        .status(400)
+        .json({ message: "name, email and phone are required" });
+    }
     const member = await User.create({
       name,
       email,
@@ -14,7 +19,10 @@ const addMember = async (req, res) => {
     res.status(201).json(member);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Failed to create member" });
+    res.status(500).json({
+      message:
+        "Failed to create member, make sure all details are entered and are correct",
+    });
   }
 };
 
@@ -41,13 +49,13 @@ const updateStatus = async (req, res) => {
     if (status === "available") {
       await Booking.findOneAndUpdate(
         { assignedMember: req.params.id },
-        { $set: { assignedMember: null, memberAssigned: false } }
+        { $set: { assignedMember: null, memberAssigned: false } },
       );
     }
     const member = await User.findByIdAndUpdate(
       req.params.id,
       { memberStatus: status },
-      { new: true }
+      { new: true },
     );
     res.json(member);
   } catch (err) {
@@ -61,7 +69,7 @@ const deleteMember = async (req, res) => {
     const member = await User.findByIdAndUpdate(
       req.params.id,
       { memberStatus: "inactive" },
-      { new: true }
+      { new: true },
     );
     res.json(member);
   } catch (err) {

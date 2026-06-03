@@ -21,7 +21,7 @@ export const createBooking = async (req, res) => {
       !contactDetails
     ) {
       return res.status(400).json({
-        message: "all fields reqired",
+        message: "all fields required",
       });
     }
     const booking = await Booking.create({

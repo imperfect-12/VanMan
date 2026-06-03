@@ -7,11 +7,13 @@ import { useAuthContext } from "./contexts/AuthContext.jsx";
 function App() {
   const { isAuthenticated } = useAuthContext();
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-slate-50">
       {isAuthenticated ? (
         <>
           <TopNav />
-          <AppRoutes />
+          <main className="flex-1">
+            <AppRoutes />
+          </main>
           <Footer />
         </>
       ) : (

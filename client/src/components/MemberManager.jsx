@@ -105,7 +105,7 @@ const MemberManager = () => {
                    focus:ring-blue-500 focus:border-blue-500"
             name="phone"
             type="tel"
-            placeholder="Phone (optional)"
+            placeholder="Phone *"
             value={form.phone}
             onChange={handleChange}
           />
