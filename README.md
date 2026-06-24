@@ -8,12 +8,6 @@ A full-stack moving service marketplace where customers can get instant quotes a
 
 ---
 
-## Screenshots
-
-> *(Will be adding soon)*
-
----
-
 ## Features
 
 **Customers**
@@ -61,6 +55,13 @@ VanMan/
     ├── models/             # Mongoose schemas
     └── routes/             # API route definitions
 ```
+
+
+---
+
+## Screenshots
+
+> *(Will be adding soon)*
 
 ---
 
