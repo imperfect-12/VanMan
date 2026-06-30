@@ -4,7 +4,7 @@ A full-stack moving service marketplace where customers can get instant quotes a
 
 > Inspired by a real student-run moving service in Germany — *"You help us by us helping you."*
 
-**[Report a Bug](https://github.com/imperfect-12/VanMan/issues)**
+**[View Live Site](https://vanman.onrender.com)** · **[Report a Bug](https://github.com/imperfect-12/VanMan/issues)**
 
 ---
 
@@ -61,7 +61,29 @@ VanMan/
 
 ## Screenshots
 
-> *(Will be adding soon)*
+### Landing Page
+
+![VanMan landing page](docs/screenshots/landing-page.png)
+
+### Quote Estimate
+
+![VanMan quote estimate](docs/screenshots/quote-estimate.png)
+
+### Booking Page
+
+![VanMan booking page](docs/screenshots/booking-page.png)
+
+### Customer Dashboard
+
+![VanMan customer dashboard](docs/screenshots/customer-dashboard.png)
+
+### Admin Booking Management
+
+![VanMan admin booking management](docs/screenshots/admin-booking.png)
+
+### Admin Member Management
+
+![VanMan admin member management](docs/screenshots/admin-member.png)
 
 ---
 

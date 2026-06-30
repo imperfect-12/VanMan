@@ -5,7 +5,7 @@ import MemberManager from "../components/MemberManager";
 const AdminDashboard = () => {
   const [activeSecton, setActiveSection] = useState("bookings");
   return (
-    <div className="mx-auto max-w-7xl space-y-6 p-5 md:p-6">
+    <div className="mx-auto min-h-screen max-w-7xl space-y-6 p-5 md:p-6">
       <section className="flex flex-wrap gap-3 border-b border-slate-200 pb-4">
         <button
           onClick={(e) => {
