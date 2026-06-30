@@ -1,4 +1,5 @@
 import Booking from "../models/booking.js";
+import User from "../models/user.js";
 import { calculateMovingEstimate } from "../utils/pricing.js";
 
 const getBookingErrorMessage = (err, fallback) => {
@@ -125,12 +126,31 @@ export const updateBooking = async (req, res) => {
     booking.distance = Number(booking.distance);
     booking.bookingPrice = estimatedPrice;
 
-    if (["cancelled", "completed"].includes(booking.status)) {
+    const releasedMemberId = ["cancelled", "completed"].includes(
+      booking.status,
+    )
+      ? booking.assignedMember
+      : null;
+
+    if (releasedMemberId) {
       booking.assignedMember = null;
       booking.memberAssigned = false;
     }
 
     await booking.save();
+
+    if (releasedMemberId) {
+      await User.findOneAndUpdate(
+        {
+          _id: releasedMemberId,
+          role: "member",
+          memberStatus: "assigned",
+        },
+        { memberStatus: "available" },
+        { runValidators: true },
+      );
+    }
+
     res.json(booking);
   } catch (err) {
     console.error(err);

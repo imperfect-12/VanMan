@@ -60,6 +60,20 @@ const BookingManager = () => {
                   scope="col"
                   className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
                 >
+                  Service
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Load Size
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
                   Service Date
                 </th>
 

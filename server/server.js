@@ -1,7 +1,5 @@
-import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
-import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -16,43 +14,9 @@ for (const key of requiredEnv) {
   }
 }
 
-import authRoute from "./routes/authRoute.js";
-import quoteRoute from "./routes/quoteRoute.js";
-import bookingRoute from "./routes/bookingRoute.js";
-import adminRoute from "./routes/adminRoute.js";
-import mongoose from "mongoose";
-
-const app = express();
-
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-    methods: ["GET", "POST", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
-);
-app.use(express.json());
-app.use(cookieParser());
-
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "ok" });
-});
-
-app.get("/ready", (req, res) => {
-  if (mongoose.connection.readyState !== 1) {
-    return res.status(503).json({ status: "not_ready" });
-  }
-
-  res.status(200).json({ status: "ready" });
-});
-
-app.use("/api/auth", authRoute);
-app.use("/api/quotes", quoteRoute);
-app.use("/api/bookings", bookingRoute);
-app.use("/api/admin", adminRoute);
-
 const PORT = process.env.PORT || 3000;
+const { createApp } = await import("./app.js");
+const app = createApp();
 
 mongoose
   .connect(process.env.MONGODB_URI)

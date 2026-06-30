@@ -1,3 +1,10 @@
+const statusStyles = {
+  pending: "bg-yellow-100 text-yellow-700",
+  confirmed: "bg-blue-100 text-blue-700",
+  completed: "bg-green-100 text-green-700",
+  cancelled: "bg-red-100 text-red-700",
+};
+
 const BookingCard = ({ booking }) => {
   const {
     _id,
@@ -24,14 +31,9 @@ const BookingCard = ({ booking }) => {
         </h3>
 
         <span
-          className={`px-3 py-1 text-xs font-medium rounded-full
-      ${
-        status === "Completed"
-          ? "bg-green-100 text-green-700"
-          : status === "Pending"
-            ? "bg-yellow-100 text-yellow-700"
-            : "bg-blue-100 text-blue-700"
-      }`}
+          className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${
+            statusStyles[status] || "bg-slate-100 text-slate-700"
+          }`}
         >
           {status}
         </span>

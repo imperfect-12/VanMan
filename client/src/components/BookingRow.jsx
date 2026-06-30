@@ -161,6 +161,33 @@ const BookingRow = ({ booking, members, onAssigned, setErrMessage }) => {
         </td>
 
         <td className="px-4 py-3">
+          <select
+            className="w-36 rounded-lg border border-slate-300 px-3 py-2 text-sm"
+            name="serviceType"
+            value={editForm.serviceType}
+            onChange={handleEditChange}
+          >
+            <option value="small-parcel">Small parcel</option>
+            <option value="furniture">Furniture</option>
+            <option value="house-move">House move</option>
+            <option value="helper-only">Helper only</option>
+          </select>
+        </td>
+
+        <td className="px-4 py-3">
+          <select
+            className="w-28 rounded-lg border border-slate-300 px-3 py-2 text-sm"
+            name="loadSize"
+            value={editForm.loadSize}
+            onChange={handleEditChange}
+          >
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+        </td>
+
+        <td className="px-4 py-3">
           <input
             className="w-36 rounded-lg border border-slate-300 px-3 py-2 text-sm"
             name="serviceDate"
@@ -280,6 +307,14 @@ const BookingRow = ({ booking, members, onAssigned, setErrMessage }) => {
 
       <td className="px-4 py-3 text-sm text-slate-700">
         {booking.contactDetails?.phone || "—"}
+      </td>
+
+      <td className="px-4 py-3 text-sm capitalize text-slate-700">
+        {booking.serviceType?.replaceAll("-", " ") || "—"}
+      </td>
+
+      <td className="px-4 py-3 text-sm capitalize text-slate-700">
+        {booking.loadSize || "—"}
       </td>
 
       <td className="px-4 py-3 text-sm text-slate-700">
