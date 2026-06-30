@@ -1,10 +1,6 @@
-import { useContext, createContext, useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { AuthContext } from "./authContextValue";
 import * as authService from "../services/authService";
-
-const AuthContext = createContext();
-
-export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -31,12 +27,10 @@ export const AuthProvider = ({ children }) => {
       await authService.login(email, password);
       const userData = await authService.getMe();
       setUser(userData);
+      return userData;
     } catch (err) {
-      console.log(err.response?.data?.message);
+      throw new Error(err.response?.data?.message || "Unable to log in.");
     }
-    // await authService.login(email, password);
-    // const userData = await authService.getMe();
-    // setUser(userData);
   };
   const signup = async (name, email, password) => {
     try {
@@ -44,13 +38,10 @@ export const AuthProvider = ({ children }) => {
       await authService.login(email, password);
       const userData = await authService.getMe();
       setUser(userData);
+      return userData;
     } catch (err) {
-      console.log(err.response?.data?.message);
+      throw new Error(err.response?.data?.message || "Unable to sign up.");
     }
-    // await authService.signup(name, email, password);
-    // await authService.login(email, password);
-    // const userData = await authService.getMe();
-    // setUser(userData);
   };
 
   const logout = async () => {
@@ -58,7 +49,7 @@ export const AuthProvider = ({ children }) => {
       await authService.logout();
       setUser(null);
     } catch (err) {
-      console.log(err.response?.data?.message);
+      throw new Error(err.response?.data?.message || "Unable to log out.");
     }
   };
 

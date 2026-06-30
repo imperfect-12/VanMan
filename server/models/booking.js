@@ -29,6 +29,11 @@ const bookingSchema = new mongoose.Schema(
       type: Object,
       required: true,
     },
+    distance: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
     contactDetails: {
       type: Object,
       required: true,

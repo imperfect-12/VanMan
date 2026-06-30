@@ -2,23 +2,24 @@ import QuoteButton from "../components/QuoteButton";
 
 const Home = () => {
   return (
-    <div className="bg-slate-50">
+    <div>
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="max-w-3xl">
-          <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700 mb-6">
+      <section className="mx-auto max-w-7xl px-5 py-20 md:py-24">
+        <div className="surface-panel overflow-hidden rounded-lg px-6 py-12 md:px-12 md:py-16">
+          <div className="max-w-3xl">
+          <span className="mb-6 inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700 ring-1 ring-blue-200">
             Student-Powered Moving Services
           </span>
 
-          <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-4">
+          <h1 className="mb-4 text-5xl font-bold tracking-tight text-slate-950 md:text-6xl">
             VanMan
           </h1>
 
-          <p className="text-xl text-blue-600 font-medium mb-6">
+          <p className="mb-6 text-xl font-semibold text-blue-600">
             Young and Reliable
           </p>
 
-          <p className="text-lg text-slate-600 leading-relaxed mb-8">
+          <p className="mb-8 max-w-2xl text-lg leading-relaxed text-slate-600">
             From small parcels to full house moves — we help with everything.
             <br />
             Fast, affordable and powered by local students.
@@ -27,13 +28,16 @@ const Home = () => {
           <div className="flex flex-wrap gap-4">
             <QuoteButton />
           </div>
+          </div>
         </div>
       </section>
 
       {/* How We Work */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
+      <section className="mx-auto max-w-7xl px-5 py-14">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-slate-900">How We Work</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-slate-950">
+            How We Work
+          </h2>
 
           <p className="mt-3 text-slate-600">
             Three simple steps to get moving.
@@ -41,8 +45,8 @@ const Home = () => {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg mb-4">
+          <div className="soft-card rounded-lg border border-slate-200 bg-white p-6">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600 ring-1 ring-blue-200">
               1
             </div>
 
@@ -56,8 +60,8 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg mb-4">
+          <div className="soft-card rounded-lg border border-slate-200 bg-white p-6">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600 ring-1 ring-blue-200">
               2
             </div>
 
@@ -70,8 +74,8 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg mb-4">
+          <div className="soft-card rounded-lg border border-slate-200 bg-white p-6">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-lg font-bold text-blue-600 ring-1 ring-blue-200">
               3
             </div>
 
@@ -89,9 +93,9 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="bg-white border border-slate-200 rounded-2xl p-8 md:p-12">
-          <h2 className="text-3xl font-bold text-slate-900 text-center mb-10">
+      <section className="mx-auto max-w-7xl px-5 py-14">
+        <div className="surface-panel rounded-lg p-8 md:p-12">
+          <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-slate-950">
             Why Choose Us?
           </h2>
 

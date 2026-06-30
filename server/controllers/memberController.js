@@ -1,6 +1,9 @@
 import User from "../models/user.js";
 import Booking from "../models/booking.js";
 
+const MEMBER_STATUS_OPTIONS = ["available", "inactive"];
+const ACTIVE_BOOKING_STATUSES = ["pending", "confirmed"];
+
 const addMember = async (req, res) => {
   try {
     const { name, phone, email } = req.body;
@@ -39,42 +42,73 @@ const getMembers = async (req, res) => {
     res.json(members);
   } catch (err) {
     console.error(err);
-    res.json({ message: "error getting members" });
+    res.status(500).json({ message: "error getting members" });
   }
 };
 
 const updateStatus = async (req, res) => {
   try {
     const { status } = req.body;
-    if (status === "available") {
-      await Booking.findOneAndUpdate(
-        { assignedMember: req.params.id },
-        { $set: { assignedMember: null, memberAssigned: false } },
-      );
+
+    if (!MEMBER_STATUS_OPTIONS.includes(status)) {
+      return res.status(400).json({ message: "Invalid member status" });
     }
+
+    const activeAssignment = await Booking.exists({
+      assignedMember: req.params.id,
+      status: { $in: ACTIVE_BOOKING_STATUSES },
+    });
+
+    if (activeAssignment) {
+      return res.status(400).json({
+        message: "Assigned members cannot be updated until unassigned",
+      });
+    }
+
     const member = await User.findByIdAndUpdate(
       req.params.id,
       { memberStatus: status },
-      { new: true },
+      { new: true, runValidators: true },
     );
+
+    if (!member) {
+      return res.status(404).json({ message: "Member not found" });
+    }
+
     res.json(member);
   } catch (err) {
     console.error(err);
-    res.json({ message: "error updating status" });
+    res.status(500).json({ message: "error updating status" });
   }
 };
 
 const deleteMember = async (req, res) => {
   try {
+    const activeAssignment = await Booking.exists({
+      assignedMember: req.params.id,
+      status: { $in: ACTIVE_BOOKING_STATUSES },
+    });
+
+    if (activeAssignment) {
+      return res.status(400).json({
+        message: "Assigned members cannot be deleted until unassigned",
+      });
+    }
+
     const member = await User.findByIdAndUpdate(
       req.params.id,
       { memberStatus: "inactive" },
-      { new: true },
+      { new: true, runValidators: true },
     );
+
+    if (!member) {
+      return res.status(404).json({ message: "Member not found" });
+    }
+
     res.json(member);
   } catch (err) {
     console.error(err);
-    res.json({ message: "error deleting member" });
+    res.status(500).json({ message: "error deleting member" });
   }
 };
 
@@ -103,7 +137,7 @@ const assignMembers = async (req, res) => {
     });
 
     if (!member)
-      res
+      return res
         .status(400)
         .json({ message: "Member not available or does not exist" });
 

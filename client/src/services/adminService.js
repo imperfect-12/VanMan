@@ -22,6 +22,11 @@ export const assignMember = async (memberid, bookingid) => {
   return res.data;
 };
 
+export const updateBooking = async (bookingid, bookingData) => {
+  const res = await api.patch(`/admin/bookings/${bookingid}`, bookingData);
+  return res.data;
+};
+
 export const getMembers = async () => {
   const res = await api.get(`/admin/members/`);
   return res.data;

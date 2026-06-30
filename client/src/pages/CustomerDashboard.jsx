@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../contexts/useAuthContext";
 import { myBookings } from "../services/bookingService";
 import BookingCard from "../components/BookingCard";
 
@@ -23,14 +23,14 @@ const CustomerDashboard = () => {
     fetchBookings();
   }, []);
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="py-12 text-center text-slate-500">Loading...</p>;
   }
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
+    <div className="min-h-screen px-4 py-10">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Welcome Section */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-8">
-          <h2 className="text-3xl font-bold text-slate-900">
+        <div className="surface-panel rounded-lg p-8">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-950">
             Hello, {user.name}
           </h2>
 
@@ -40,7 +40,7 @@ const CustomerDashboard = () => {
         </div>
 
         {/* Bookings Section */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-8">
+        <section className="surface-panel rounded-lg p-8">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-semibold text-slate-900">
               My Bookings
@@ -52,7 +52,7 @@ const CustomerDashboard = () => {
           </div>
 
           {bookings.length === 0 ? (
-            <div className="py-12 text-center border border-dashed border-slate-300 rounded-xl">
+            <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50/70 py-12 text-center">
               <p className="text-slate-500">You don't have any bookings yet.</p>
             </div>
           ) : (

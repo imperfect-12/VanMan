@@ -6,6 +6,7 @@ const BookingCard = ({ booking }) => {
     loadSize,
     pickupLocation,
     dropLocation,
+    distance,
     contactDetails,
     description,
     status,
@@ -16,7 +17,7 @@ const BookingCard = ({ booking }) => {
   } = booking;
 
   return (
-    <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-3 hover:shadow-sm transition-shadow">
+    <div className="soft-card space-y-3 rounded-lg border border-slate-200 bg-white p-5">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-slate-900">
           {contactDetails.name}
@@ -70,6 +71,11 @@ const BookingCard = ({ booking }) => {
         <p>
           <span className="font-medium text-slate-800">Drop:</span>{" "}
           {dropLocation.city}, {dropLocation.area}
+        </p>
+
+        <p>
+          <span className="font-medium text-slate-800">Distance:</span>{" "}
+          {distance} km
         </p>
 
         {description && (

@@ -1,28 +1,59 @@
 import { useForm } from "react-hook-form";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../contexts/useAuthContext";
 import { newBooking } from "../services/bookingService";
+import { useState } from "react";
 
 const BookingPage = () => {
   const { user } = useAuthContext();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
     reset,
+    formState: {
+      errors,
+    },
   } = useForm();
 
   const onSubmit = async (data) => {
-    const res = await newBooking(data);
-    reset();
+    setErrorMessage("");
+    setSuccessMessage("");
+    try {
+      setSubmitting(true);
+      const booking = await newBooking(data);
+      setSuccessMessage(
+        `Booking created successfully. Estimated price: ₹${booking.bookingPrice}`,
+      );
+      reset();
+    } catch (err) {
+      setErrorMessage(
+        err.response?.data?.message || "Unable to create booking right now.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
-      <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-slate-900 mb-8">
+    <div className="min-h-screen px-4 py-10">
+      <div className="surface-panel mx-auto max-w-3xl rounded-lg p-8">
+        <h1 className="mb-8 text-3xl font-bold tracking-tight text-slate-950">
           Book a Service
         </h1>
+
+        {errorMessage && (
+          <p className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {errorMessage}
+          </p>
+        )}
+
+        {successMessage && (
+          <p className="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+            {successMessage}
+          </p>
+        )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           {/* Service Type */}
@@ -43,6 +74,11 @@ const BookingPage = () => {
               <option value="house-move">Full House Move</option>
               <option value="helper-only">Helper Only</option>
             </select>
+            {errors.serviceType && (
+              <p className="text-sm text-red-600">
+                {errors.serviceType.message}
+              </p>
+            )}
           </section>
 
           {/* Pickup Location */}
@@ -62,6 +98,11 @@ const BookingPage = () => {
                   required: "enter pickup city",
                 })}
               />
+              {errors.pickupLocation?.city && (
+                <p className="text-sm text-red-600">
+                  {errors.pickupLocation.city.message}
+                </p>
+              )}
 
               <input
                 type="text"
@@ -73,6 +114,11 @@ const BookingPage = () => {
                   required: "enter pickup area/locality",
                 })}
               />
+              {errors.pickupLocation?.area && (
+                <p className="text-sm text-red-600">
+                  {errors.pickupLocation.area.message}
+                </p>
+              )}
             </div>
           </section>
 
@@ -93,6 +139,11 @@ const BookingPage = () => {
                   required: "enter drop city",
                 })}
               />
+              {errors.dropLocation?.city && (
+                <p className="text-sm text-red-600">
+                  {errors.dropLocation.city.message}
+                </p>
+              )}
 
               <input
                 type="text"
@@ -104,6 +155,11 @@ const BookingPage = () => {
                   required: "enter drop area/locality",
                 })}
               />
+              {errors.dropLocation?.area && (
+                <p className="text-sm text-red-600">
+                  {errors.dropLocation.area.message}
+                </p>
+              )}
             </div>
           </section>
 
@@ -126,6 +182,35 @@ const BookingPage = () => {
               <option value="medium">Medium</option>
               <option value="large">Large</option>
             </select>
+            {errors.loadSize && (
+              <p className="text-sm text-red-600">{errors.loadSize.message}</p>
+            )}
+          </section>
+
+          {/* Distance */}
+          <section className="space-y-3 pb-6 border-b border-slate-200">
+            <label className="block text-sm font-medium text-slate-700">
+              Approx Distance (km)
+            </label>
+
+            <input
+              type="number"
+              placeholder="Enter distance in kilometers"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-blue-500
+                     focus:border-blue-500 transition"
+              {...register("distance", {
+                required: "enter the approx distance",
+                valueAsNumber: true,
+                min: {
+                  value: 1,
+                  message: "distance must be at least 1 km",
+                },
+              })}
+            />
+            {errors.distance && (
+              <p className="text-sm text-red-600">{errors.distance.message}</p>
+            )}
           </section>
 
           {/* Service Date */}
@@ -143,6 +228,11 @@ const BookingPage = () => {
                 required: "enter service date",
               })}
             />
+            {errors.serviceDate && (
+              <p className="text-sm text-red-600">
+                {errors.serviceDate.message}
+              </p>
+            )}
           </section>
 
           {/* Contact Details */}
@@ -163,6 +253,11 @@ const BookingPage = () => {
                   required: "enter your name",
                 })}
               />
+              {errors.contactDetails?.name && (
+                <p className="text-sm text-red-600">
+                  {errors.contactDetails.name.message}
+                </p>
+              )}
 
               <input
                 type="tel"
@@ -174,6 +269,11 @@ const BookingPage = () => {
                   required: "enter phone number",
                 })}
               />
+              {errors.contactDetails?.phone && (
+                <p className="text-sm text-red-600">
+                  {errors.contactDetails.phone.message}
+                </p>
+              )}
             </div>
 
             <input
@@ -187,6 +287,11 @@ const BookingPage = () => {
                 required: "enter the email",
               })}
             />
+            {errors.contactDetails?.email && (
+              <p className="text-sm text-red-600">
+                {errors.contactDetails.email.message}
+              </p>
+            )}
           </section>
 
           {/* Additional Notes */}
@@ -208,12 +313,14 @@ const BookingPage = () => {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg
-                   font-medium hover:bg-blue-700 transition-colors
+            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white
+                   shadow-sm shadow-blue-600/20 hover:bg-blue-700 hover:shadow-md hover:shadow-blue-600/25
+                   disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none
                    focus:outline-none focus:ring-2
                    focus:ring-blue-500 focus:ring-offset-2"
+            disabled={submitting}
           >
-            Confirm Booking
+            {submitting ? "Creating booking..." : "Confirm Booking"}
           </button>
         </form>
       </div>

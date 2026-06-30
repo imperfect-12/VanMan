@@ -38,8 +38,8 @@ const MemberManager = () => {
     setFormError(null);
 
     const { name, email, phone } = form;
-    if (!name.trim() || !email.trim()) {
-      setFormError("Name and email are required.");
+    if (!name.trim() || !email.trim() || !phone.trim()) {
+      setFormError("Name, email and phone are required.");
       return;
     }
 
@@ -63,6 +63,26 @@ const MemberManager = () => {
   useEffect(() => {
     fetchMembers();
   }, []);
+
+  const handleStatusChange = async (memberId, status) => {
+    try {
+      setErrMessage(null);
+      await changeMemberStatus(memberId, status);
+      await fetchMembers();
+    } catch (err) {
+      setErrMessage(err.response?.data?.message || "Failed to update member.");
+    }
+  };
+
+  const handleDeleteMember = async (memberId) => {
+    try {
+      setErrMessage(null);
+      await deleteMember(memberId);
+      await fetchMembers();
+    } catch (err) {
+      setErrMessage(err.response?.data?.message || "Failed to delete member.");
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -108,6 +128,7 @@ const MemberManager = () => {
             placeholder="Phone *"
             value={form.phone}
             onChange={handleChange}
+            required
           />
 
           <button
@@ -169,6 +190,7 @@ const MemberManager = () => {
 
               <tbody className="divide-y divide-slate-200">
                 {members.map((member) => {
+                  const isAssigned = member.memberStatus === "assigned";
                   const newStatus =
                     member.memberStatus === "available"
                       ? "inactive"
@@ -210,13 +232,13 @@ const MemberManager = () => {
                         <button
                           className="px-3 py-2 bg-blue-600 text-white rounded-lg
                                text-sm font-medium hover:bg-blue-700
-                               transition-colors"
-                          onClick={() => {
-                            changeMemberStatus(member._id, newStatus);
-                            fetchMembers();
-                          }}
+                               transition-colors disabled:cursor-not-allowed disabled:bg-slate-300"
+                          onClick={() =>
+                            handleStatusChange(member._id, newStatus)
+                          }
+                          disabled={isAssigned}
                         >
-                          {label}
+                          {isAssigned ? "Assigned" : label}
                         </button>
                       </td>
 
@@ -224,11 +246,9 @@ const MemberManager = () => {
                         <button
                           className="px-3 py-2 bg-red-600 text-white rounded-lg
                                text-sm font-medium hover:bg-red-700
-                               transition-colors"
-                          onClick={() => {
-                            deleteMember(member._id);
-                            fetchMembers();
-                          }}
+                               transition-colors disabled:cursor-not-allowed disabled:bg-slate-300"
+                          onClick={() => handleDeleteMember(member._id)}
+                          disabled={isAssigned}
                         >
                           Delete
                         </button>

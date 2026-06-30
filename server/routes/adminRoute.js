@@ -8,7 +8,10 @@ import {
   updateStatus,
   assignMembers,
 } from "../controllers/memberController.js";
-import { getAllBookings } from "../controllers/bookingController.js";
+import {
+  getAllBookings,
+  updateBooking,
+} from "../controllers/bookingController.js";
 
 const router = express.Router();
 
@@ -17,6 +20,7 @@ router.get("/members", auth, isAdmin, getMembers);
 router.delete("/members/:id", auth, isAdmin, deleteMember);
 router.patch("/members/:id/status", auth, isAdmin, updateStatus);
 router.patch("/bookings/:bookingid/assign", auth, isAdmin, assignMembers);
+router.patch("/bookings/:bookingid", auth, isAdmin, updateBooking);
 router.get("/bookings", auth, isAdmin, getAllBookings);
 
 export default router;

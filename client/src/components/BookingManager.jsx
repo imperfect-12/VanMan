@@ -67,6 +67,13 @@ const BookingManager = () => {
                   scope="col"
                   className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
                 >
+                  Status
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
                   Pickup
                 </th>
 
@@ -75,6 +82,20 @@ const BookingManager = () => {
                   className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
                 >
                   Drop
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Distance
+                </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Price
                 </th>
 
                 <th
@@ -97,6 +118,13 @@ const BookingManager = () => {
                 >
                   Assign
                 </th>
+
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-600"
+                >
+                  Edit
+                </th>
               </tr>
             </thead>
 
@@ -107,7 +135,7 @@ const BookingManager = () => {
                   booking={booking}
                   members={members}
                   onAssigned={fetchBookings}
-                  setErrorMessage={setErrMessage}
+                  setErrMessage={setErrMessage}
                 />
               ))}
             </tbody>

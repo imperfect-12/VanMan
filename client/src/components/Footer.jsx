@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/Van-Man.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-slate-300 mt-16">
+    <footer className="mt-16 border-t border-slate-800 bg-slate-950 text-slate-300">
       <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-2">
         <section className="space-y-4">
           <div className="flex items-center gap-3">
@@ -18,7 +17,7 @@ const Footer = () => {
             <h2 className="text-xl font-bold text-white">VanMan</h2>
           </div>
 
-          <p className="text-slate-400">- Young and fast.</p>
+          <p className="text-slate-400">Young and fast.</p>
 
           <p className="text-slate-500 text-sm">Help Us by Helping You</p>
         </section>

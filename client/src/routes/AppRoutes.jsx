@@ -5,6 +5,7 @@ import CustomerDashboard from "../pages/CustomerDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
 import BookingPage from "../pages/BookingPage";
 import ProtectedRoute from "./ProtectedRoute";
+import Login from "../pages/Login";
 
 const AppRoutes = () => {
   return (
@@ -12,6 +13,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route path={"/home"} element={<Home />} />
+        <Route path={"/login"} element={<Login />} />
         <Route
           path="/quote"
           element={
